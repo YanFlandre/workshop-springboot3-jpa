@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.yanflandre.Course.entities.Category;
 import com.yanflandre.Course.entities.Order;
 import com.yanflandre.Course.entities.OrderItem;
+import com.yanflandre.Course.entities.Payment;
 import com.yanflandre.Course.entities.Product;
 import com.yanflandre.Course.entities.User;
 import com.yanflandre.Course.entities.enums.OrderStatus;
@@ -78,8 +79,13 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
 		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
 		
-		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		orderRepository.save(o1);
 	}
 
 }
